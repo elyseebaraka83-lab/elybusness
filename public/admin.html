@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Espace d'administration du site ElyBusiness. Réservé aux gestionnaires autorisés.">
+    <title>ElyBusiness | Administration</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet (Reused for consistent theme) -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="padding-top: 0;">
+
+    <!-- Background Glow Orbs -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Security blocker overlay (prevent flash of content) -->
+    <div id="security-blocker" style="position: fixed; inset: 0; background: #0b0813; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #8b5cf6;"></i>
+        <p style="font-family: sans-serif; color: #94a3b8;">Vérification de l'autorisation d'accès...</p>
+    </div>
+
+    <!-- Main Admin Container -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem;">
+        
+        <!-- Header Panel -->
+        <header class="admin-nav-bar" style="position: static; background: transparent; border-bottom: none; backdrop-filter: none; padding: 0; margin-bottom: 2.5rem;">
+            <div>
+                <a href="index.html" class="btn-back-home"><i class="fas fa-arrow-left"></i> Retour au site public</a>
+                <h1 class="admin-nav-title" style="margin-top: 0.5rem; background: linear-gradient(135deg, #fff, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Dashboard Admin</h1>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <div class="admin-badge" style="margin: 0;"><i class="fas fa-user-shield"></i> Administrateur</div>
+                <button id="admin-logout-btn" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem; border-radius: 8px;"><i class="fas fa-sign-out-alt"></i> Déconnecter</button>
+            </div>
+        </header>
+
+        <!-- Master Admin Layout -->
+        <div class="admin-layout">
+            
+            <!-- Sidebar Tabs Navigation -->
+            <aside class="admin-sidebar">
+                <button class="admin-sidebar-btn active" data-tab="tab-stats">
+                    <i class="fas fa-chart-line"></i> Statistiques
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-orders">
+                    <i class="fas fa-shopping-bag"></i> Commandes
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-products">
+                    <i class="fas fa-cubes"></i> Gérer Articles
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-settings">
+                    <i class="fas fa-sliders-h"></i> Paramètres Site
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-backup">
+                    <i class="fas fa-database"></i> Backup & Data
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-users">
+                    <i class="fas fa-users"></i> Utilisateurs
+                </button>
+                <button class="admin-sidebar-btn" data-tab="tab-testimonials">
+                    <i class="fas fa-star"></i> Témoignages
+                </button>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="admin-content">
+                
+                <!-- TAB 1: PRODUCT MANAGEMENT -->
+                <section id="tab-products" class="admin-section active" style="padding: 0; max-width: none; margin: 0;">
+                    <div class="admin-toolbar">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem;">Articles en vente</h2>
+                        <button id="btn-add-product" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;"><i class="fas fa-plus"></i> Ajouter un article</button>
+                    </div>
+
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Aperçu</th>
+                                    <th>Nom de l'article</th>
+                                    <th>Catégorie</th>
+                                    <th>Prix ($ USD)</th>
+                                    <th>Stock</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-tbody">
+                                <!-- Products loaded by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 2: GENERAL SITE SETTINGS -->
+                <section id="tab-settings" class="admin-section" style="padding: 0; max-width: none; margin: 0;">
+                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem;">Paramètres généraux du site</h2>
+                    
+                    <form class="contact-form" id="admin-settings-form">
+                        <div class="admin-form-grid">
+                            
+                            <!-- Welcome settings -->
+                            <div class="form-group admin-full-width">
+                                <h3 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;"><i class="fas fa-home"></i> Message d'Accueil</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="setting-welcome-title">Titre principal</label>
+                                <input type="text" id="setting-welcome-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-whatsapp">Numéro WhatsApp (avec code pays ex: +228 90 00 00 00)</label>
+                                <input type="text" id="setting-whatsapp" class="form-control" required>
+                            </div>
+                            <div class="form-group admin-full-width">
+                                <label for="setting-welcome-desc">Texte de description d'accueil</label>
+                                <textarea id="setting-welcome-desc" class="form-control" required></textarea>
+                            </div>
+
+                            <!-- Contacts & Networks -->
+                            <div class="form-group admin-full-width" style="margin-top: 1.5rem;">
+                                <h3 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;"><i class="fas fa-address-book"></i> Contacts & Liens Réseaux</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-email">E-mail de contact</label>
+                                <input type="email" id="setting-email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-address">Adresse physique</label>
+                                <input type="text" id="setting-address" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-facebook">Lien Facebook (@Elysée BARAKA)</label>
+                                <input type="url" id="setting-facebook" class="form-control" placeholder="https://facebook.com/elyseebaraka">
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-instagram">Lien Instagram (@Elysée BARAKA)</label>
+                                <input type="url" id="setting-instagram" class="form-control" placeholder="https://instagram.com/elyseebaraka">
+                            </div>
+
+                            <!-- About & CEO Information -->
+                            <div class="form-group admin-full-width" style="margin-top: 1.5rem;">
+                                <h3 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;"><i class="fas fa-user-tie"></i> Section À Propos & PDG</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-ceo-name">Nom du PDG</label>
+                                <input type="text" id="setting-ceo-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Photo du PDG</label>
+                                <div class="image-preview-container" id="ceo-photo-upload">
+                                    <span id="ceo-photo-status"><i class="fas fa-cloud-upload-alt"></i> Choisir une photo</span>
+                                    <img src="" id="ceo-photo-preview" style="display: none;" alt="Aperçu PDG">
+                                    <input type="file" id="ceo-photo-file" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="form-group admin-full-width">
+                                <label for="setting-ceo-bio">Texte de citation / Biographie du PDG</label>
+                                <textarea id="setting-ceo-bio" class="form-control" required></textarea>
+                            </div>
+                            
+                            <!-- Logos and Assets -->
+                            <div class="form-group admin-full-width" style="margin-top: 1.5rem;">
+                                <h3 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;"><i class="fas fa-images"></i> Logo & Images du Site</h3>
+                            </div>
+                            <div class="form-group">
+                                <label>Logo du site</label>
+                                <div class="image-preview-container" id="logo-photo-upload">
+                                    <span id="logo-photo-status"><i class="fas fa-cloud-upload-alt"></i> Choisir un logo</span>
+                                    <img src="" id="logo-photo-preview" style="display: none;" alt="Aperçu Logo">
+                                    <input type="file" id="logo-photo-file" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Image d'illustration "À propos"</label>
+                                <div class="image-preview-container" id="about-photo-upload">
+                                    <span id="about-photo-status"><i class="fas fa-cloud-upload-alt"></i> Choisir l'image d'illustration</span>
+                                    <img src="" id="about-photo-preview" style="display: none;" alt="Aperçu À propos">
+                                    <input type="file" id="about-photo-file" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+
+                            <!-- Admin Password Security Section -->
+                            <div class="form-group admin-full-width" style="margin-top: 1.5rem;">
+                                <h3 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;"><i class="fas fa-lock"></i> Sécurité du Compte Administrateur</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-admin-new-pass">Nouveau mot de passe Administrateur</label>
+                                <input type="password" id="setting-admin-new-pass" class="form-control" placeholder="Entrer le nouveau mot de passe" minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-admin-confirm-pass">Confirmer le nouveau mot de passe</label>
+                                <input type="password" id="setting-admin-confirm-pass" class="form-control" placeholder="Confirmer le mot de passe" minlength="6">
+                            </div>
+
+                        </div>
+
+                        <div style="margin-top: 2.5rem; display: flex; justify-content: flex-end;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Enregistrer les paramètres</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- TAB 3: BACKUP, RESTORE & DATA MANAGEMENT -->
+                <section id="tab-backup" class="admin-section" style="padding: 0; max-width: none; margin: 0;">
+                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Sauvegarde & Restauration</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">
+                        Puisque ce site est entièrement statique, vos produits et configurations sont stockés dans le navigateur local (`localStorage`). Pour éviter de les perdre en effaçant l'historique du navigateur ou pour transférer vos données, utilisez les options de sauvegarde ci-dessous.
+                    </p>
+
+                    <div class="services-overview" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 0;">
+                        
+                        <!-- Backup Export Card -->
+                        <div class="service-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="service-icon" style="color: var(--secondary); background: rgba(6, 182, 212, 0.1);"><i class="fas fa-download"></i></div>
+                                <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Exporter les Données</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                    Téléchargez l'intégralité du catalogue et des paramètres du site dans un fichier JSON sur votre ordinateur.
+                                </p>
+                            </div>
+                            <button id="btn-export-db" class="btn btn-secondary" style="width: 100%; border-color: rgba(6, 182, 212, 0.3); color: var(--secondary);"><i class="fas fa-file-download"></i> Exporter en JSON</button>
+                        </div>
+
+                        <!-- Restore Import Card -->
+                        <div class="service-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="service-icon" style="color: var(--primary); background: rgba(139, 92, 246, 0.1);"><i class="fas fa-upload"></i></div>
+                                <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Importer les Données</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                    Chargez un fichier de sauvegarde JSON pour écraser et mettre à jour le catalogue actuel de votre boutique.
+                                </p>
+                            </div>
+                            <div style="width: 100%;">
+                                <input type="file" id="import-db-file" accept=".json" style="display: none;">
+                                <button id="btn-import-db" class="btn btn-secondary" style="width: 100%; border-color: var(--border-color); color: var(--primary);"><i class="fas fa-file-upload"></i> Importer un fichier</button>
+                            </div>
+                        </div>
+
+                        <!-- Reset Card -->
+                        <div class="service-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="service-icon" style="color: var(--danger); background: rgba(239, 68, 68, 0.1);"><i class="fas fa-history"></i></div>
+                                <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Réinitialisation</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                    Supprimez toutes vos modifications et restaurez le catalogue et les textes de démonstration par défaut.
+                                </p>
+                            </div>
+                            <button id="btn-reset-db" class="btn btn-secondary" style="width: 100%; border-color: rgba(239, 68, 68, 0.3); color: var(--danger);"><i class="fas fa-trash-alt"></i> Réinitialiser l'application</button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- TAB 4: USER MANAGEMENT -->
+                <section id="tab-users" class="admin-section" style="padding: 0; max-width: none; margin: 0;">
+                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem;">Utilisateurs enregistrés</h2>
+                    
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom Complet</th>
+                                    <th>Adresse Gmail</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-tbody">
+                                <!-- Users loaded by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 5: SALES STATISTICS & DASHBOARD -->
+                <section id="tab-stats" class="admin-section active" style="padding: 0; max-width: none; margin: 0;">
+                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1.5rem;">Tableau de bord &amp; Statistiques de vente</h2>
+                    
+                    <div class="stats-kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon kpi-icon--green"><i class="fas fa-dollar-sign"></i></div>
+                            <div class="kpi-info">
+                                <span class="kpi-label">Chiffre d'Affaires</span>
+                                <h3 class="kpi-value" id="kpi-total-revenue">$0</h3>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon kpi-icon--cyan"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="kpi-info">
+                                <span class="kpi-label">Total Commandes</span>
+                                <h3 class="kpi-value" id="kpi-total-orders">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon kpi-icon--purple"><i class="fas fa-boxes"></i></div>
+                            <div class="kpi-info">
+                                <span class="kpi-label">Produits en Vente</span>
+                                <h3 class="kpi-value" id="kpi-total-products">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon kpi-icon--gold"><i class="fas fa-users"></i></div>
+                            <div class="kpi-info">
+                                <span class="kpi-label">Clients Inscrits</span>
+                                <h3 class="kpi-value" id="kpi-total-clients">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h3 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-primary);"><i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i> Alertes de Stock Faible (&lt; 5 unités)</h3>
+                        <div class="admin-table-container">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Article</th>
+                                        <th>Catégorie</th>
+                                        <th>Prix</th>
+                                        <th>Stock Restant</th>
+                                        <th>Statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-low-stock-tbody">
+                                    <!-- Dynamic -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 6: CLIENT ORDERS MANAGEMENT -->
+                <section id="tab-orders" class="admin-section" style="padding: 0; max-width: none; margin: 0;">
+                    <div class="admin-toolbar">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem;">Commandes des clients</h2>
+                        <div class="order-filter-buttons">
+                            <button class="order-filter-btn active" data-status="tout">Toutes</button>
+                            <button class="order-filter-btn" data-status="En attente">En attente</button>
+                            <button class="order-filter-btn" data-status="En cours">En cours</button>
+                            <button class="order-filter-btn" data-status="Livrée">Livrées</button>
+                            <button class="order-filter-btn" data-status="Annulée">Annulées</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>N° Commande</th>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Articles</th>
+                                    <th>Montant Total</th>
+                                    <th>Statut</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-tbody">
+                                <!-- Orders loaded by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 7: TESTIMONIALS MANAGEMENT -->
+                <section id="tab-testimonials" class="admin-section" style="padding: 0; max-width: none; margin: 0;">
+                    <div class="admin-toolbar">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem;">Témoignages & Avis Clients</h2>
+                    </div>
+
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom Client</th>
+                                    <th>Statut / Rôle</th>
+                                    <th>Note</th>
+                                    <th>Message / Témoignage</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-testimonials-tbody">
+                                <!-- Testimonials loaded by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Product Add / Edit Modal Overlay -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-container" style="max-width: 600px;">
+            <button class="modal-close" id="product-modal-close-btn">&times;</button>
+            <h3 class="modal-title" id="product-modal-title">Ajouter un produit</h3>
+            <p class="modal-desc" id="product-modal-desc">Saisissez les informations détaillées de votre produit.</p>
+            
+            <form class="contact-form" id="product-form">
+                <input type="hidden" id="product-form-id">
+                
+                <div class="admin-form-grid" style="gap: 1.2rem;">
+                    
+                    <div class="form-group">
+                        <label for="product-name">Nom de l'article</label>
+                        <input type="text" id="product-name" class="form-control" placeholder="ex: Casquette Rouge EB" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-category">Catégorie</label>
+                        <select id="product-category" class="form-control" style="background-color: #17132a;" required>
+                            <option value="" disabled selected>Choisir une catégorie</option>
+                            <option value="crédits">Crédits</option>
+                            <option value="accessoires">Accessoires</option>
+                            <option value="électronique">Électronique</option>
+                            <option value="habits">Habits</option>
+                            <option value="autres">Autres</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-price">Prix (en $ USD)</label>
+                        <input type="number" id="product-price" class="form-control" min="0" step="0.01" placeholder="ex: 25" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-stock">Stock disponible</label>
+                        <input type="number" id="product-stock" class="form-control" min="0" step="1" placeholder="ex: 15" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photo du produit</label>
+                        <div class="image-preview-container" id="product-photo-upload" style="height: 100px;">
+                            <span id="product-photo-status"><i class="fas fa-cloud-upload-alt"></i> Sélectionner</span>
+                            <img src="" id="product-photo-preview" style="display: none;" alt="Aperçu Article">
+                            <input type="file" id="product-photo-file" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="form-group admin-full-width">
+                        <label for="product-description">Description de l'article</label>
+                        <textarea id="product-description" class="form-control" placeholder="Entrez la description de l'article..." style="min-height: 80px;" required></textarea>
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" id="btn-cancel-product" class="btn btn-secondary" style="padding: 0.7rem 1.5rem;">Annuler</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 0.7rem 1.5rem;"><i class="fas fa-check"></i> Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Element -->
+    <div class="toast" id="toast-notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-message">Message Notification</span>
+    </div>
+
+    <!-- Firebase SDK & Config -->
+    <script type="module">
+        import {
+            fbGetAll, fbGetOne, fbSet, fbUpdate, fbDelete,
+            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection
+        } from './js/firebase-config.js';
+
+        // Exposer les helpers sur window pour admin.js (non-module)
+        window.fbGetAll = fbGetAll;
+        window.fbGetOne = fbGetOne;
+        window.fbSet = fbSet;
+        window.fbUpdate = fbUpdate;
+        window.fbDelete = fbDelete;
+        window.fbQuery = fbQuery;
+        window.fbGetSettings = fbGetSettings;
+        window.fbSaveSettings = fbSaveSettings;
+        window.fbClearCollection = fbClearCollection;
+    </script>
+
+    <!-- Admin Logic JavaScript -->
+    <script src="js/admin.js"></script>
+</body>
+</html>

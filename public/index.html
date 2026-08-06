@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="ElyBusiness - Votre boutique e-commerce pour crédits de communication, accessoires de mode, appareils électroniques et vêtements à Goma, DRC.">
+    <meta name="theme-color" content="#060511">
+    <title>ElyBusiness | Accueil</title>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Splash / Loader Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="splash-logo-icon">EB</div>
+                <span class="splash-logo-text">ElyBusiness</span>
+            </div>
+            <div class="splash-loader">
+                <div class="splash-loader-bar"></div>
+            </div>
+            <p class="splash-tagline">Chargement de votre expérience...</p>
+        </div>
+    </div>
+
+    <!-- Background Glow Orbs -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Navigation Header -->
+    <header id="header">
+        <nav class="nav-container">
+            <a href="#accueil" class="logo" id="site-logo-link">
+                <div class="logo-fallback" id="logo-placeholder">EB</div>
+                <span id="logo-text">ElyBusiness</span>
+            </a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#produits" class="nav-link">Nos Produits</a></li>
+                <li><a href="#a-propos" class="nav-link">À Propos</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+
+                <!-- Cart Nav Icon -->
+                <li>
+                    <button class="nav-cart-btn" id="btn-open-cart" title="Mon Panier">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cart-badge-count">0</span>
+                    </button>
+                </li>
+
+                <!-- Logged-in User Badge & Menu -->
+                <li id="user-nav-item" style="display: none;">
+                    <div class="user-nav-badge">
+                        <span class="user-greeting" id="user-greeting">Bonjour</span>
+                        <button id="btn-user-orders" class="btn-user-action" title="Mes Commandes"><i
+                                class="fas fa-receipt"></i></button>
+                        <button id="btn-user-profile" class="btn-user-action" title="Mon Profil"><i
+                                class="fas fa-user-cog"></i></button>
+                        <button id="btn-user-logout" class="btn-user-logout" title="Se déconnecter"><i
+                                class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero / Accueil Section -->
+        <section id="accueil" class="hero">
+            <!-- Animated grid background -->
+            <div class="grid-bg"></div>
+
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <span class="tag-dot"></span>
+                    Rapidité &amp; Fiabilité
+                </div>
+
+                <h1 class="hero-title" id="hero-welcome-title">
+                    Bienvenue sur le site
+                    <span class="line-2">ElyBusiness</span>
+                </h1>
+
+                <p class="hero-subtitle" id="hero-welcome-desc">
+                    Votre partenaire de confiance pour tous vos besoins de recharges (crédits, méga, minutes),
+                    d'accessoires de mode, d'appareils électroniques, de vêtements et bien plus encore.
+                </p>
+
+                <div class="hero-btns">
+                    <a href="#produits" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Découvrir nos
+                        produits</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Nous contacter</a>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="500">0</span>
+                        <span class="stat-label">Clients satisfaits</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="10" data-suffix="+">0</span>
+                        <span class="stat-label">Catégories</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="24" data-suffix="/7">0</span>
+                        <span class="stat-label">Disponibilité</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <!-- Floating mini-badges -->
+                <div class="hero-float-badge badge-1">
+                    <i class="fas fa-check-circle"></i> Commande confirmée
+                </div>
+                <div class="hero-float-badge badge-2">
+                    <i class="fas fa-bolt"></i> Livraison Express
+                </div>
+
+                <div class="hero-glow-card">
+                    <div class="hero-card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Service Express</h3>
+                    <p>Recharges de crédits et livraison d'accessoires en un temps record directement via WhatsApp.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Overview Grid -->
+        <section class="services-section">
+            <div class="services-overview">
+                <div class="service-card fade-up">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Recharge Crédit</h3>
+                    <p>Unités, méga internet et minutes d'appel toutes directions en quelques clics.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.1s">
+                    <div class="service-icon"><i class="fas fa-laptop"></i></div>
+                    <h3>Électroniques</h3>
+                    <p>Ordinateurs de bureau, portables, smartphones de grandes marques et équipements de pointe.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.2s">
+                    <div class="service-icon"><i class="fas fa-tshirt"></i></div>
+                    <h3>Habits &amp; Mode</h3>
+                    <p>Vêtements stylés et accessoires tendances (casquettes, pochettes, sacs, etc.) pour tous.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Badges / Bandeau de Confiance -->
+        <section class="trust-section">
+            <div class="trust-badges">
+                <div class="trust-badge fade-up">
+                    <div class="trust-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="trust-text">
+                        <h4>Livraison Express</h4>
+                        <p>Recevez vos commandes en un temps record</p>
+                    </div>
+                </div>
+                <div class="trust-badge fade-up" style="transition-delay:0.1s">
+                    <div class="trust-icon trust-icon--green">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="trust-text">
+                        <h4>Paiement Sécurisé</h4>
+                        <p>Transactions protégées et transparentes</p>
+                    </div>
+                </div>
+                <div class="trust-badge fade-up" style="transition-delay:0.2s">
+                    <div class="trust-icon trust-icon--pink">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="trust-text">
+                        <h4>Qualité Garantie</h4>
+                        <p>Produits soigneusement sélectionnés</p>
+                    </div>
+                </div>
+                <div class="trust-badge fade-up" style="transition-delay:0.3s">
+                    <div class="trust-icon trust-icon--gold">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="trust-text">
+                        <h4>Support 7j/7</h4>
+                        <p>Équipe disponible à tout moment</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Catalog Section -->
+        <section id="produits">
+            <div class="section-header">
+                <span class="section-badge">Notre catalogue</span>
+                <h2 class="section-title">Nos Produits</h2>
+                <p class="section-desc">Parcourez nos différentes catégories de produits et commandez instantanément via
+                    WhatsApp.</p>
+            </div>
+
+            <!-- Search Box & Categories Filter -->
+            <div class="catalog-search-container">
+                <div class="catalog-search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="product-search-input" class="product-search-input"
+                        placeholder="Rechercher un produit (ex: Recharge, Casquette, Smartphone...)" autocomplete="off">
+                    <button id="btn-clear-search" class="btn-clear-search" style="display: none;"><i
+                            class="fas fa-times"></i></button>
+                </div>
+            </div>
+
+            <div class="catalog-filters" id="catalog-filters">
+                <button class="filter-btn active" data-category="tout"><i class="fas fa-th"></i> Tout</button>
+                <button class="filter-btn" data-category="crédits"><i class="fas fa-mobile-alt"></i> Crédits</button>
+                <button class="filter-btn" data-category="accessoires"><i class="fas fa-bag-shopping"></i>
+                    Accessoires</button>
+                <button class="filter-btn" data-category="électronique"><i class="fas fa-laptop"></i>
+                    Électronique</button>
+                <button class="filter-btn" data-category="habits"><i class="fas fa-tshirt"></i> Habits</button>
+                <button class="filter-btn" data-category="autres"><i class="fas fa-ellipsis-h"></i> Autres</button>
+            </div>
+
+            <!-- Products Grid (Dynamic Content) -->
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be generated by JS -->
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="a-propos">
+            <div class="section-header">
+                <span class="section-badge">Qui sommes-nous</span>
+                <h2 class="section-title">À Propos de ElyBusiness</h2>
+                <p class="section-desc">Découvrez l'histoire de notre entreprise, notre vision et les valeurs qui nous
+                    animent au quotidien.</p>
+            </div>
+
+            <div class="about-container">
+                <div class="about-details">
+                    <div class="about-text">
+                        <h3>Notre Mission</h3>
+                        <p id="about-mission-text">
+                            ElyBusiness a été fondé avec l'ambition de faciliter l'accès aux services financiers
+                            numériques et de fournir des produits de mode et de haute technologie de qualité supérieure.
+                            Nous nous efforçons de connecter nos clients aux meilleures offres du marché.
+                        </p>
+
+                        <div class="values-grid">
+                            <div class="value-item fade-up">
+                                <h4><i class="fas fa-shield-alt"></i> Confiance</h4>
+                                <p>Toutes nos transactions sont sécurisées et transparentes pour nos clients.</p>
+                            </div>
+                            <div class="value-item fade-up" style="transition-delay:0.1s">
+                                <h4><i class="fas fa-shipping-fast"></i> Rapidité</h4>
+                                <p>Un traitement immédiat de vos commandes de crédits et livraison rapide d'articles.
+                                </p>
+                            </div>
+                            <div class="value-item fade-up" style="transition-delay:0.15s">
+                                <h4><i class="fas fa-star"></i> Qualité</h4>
+                                <p>Chaque produit est soigneusement sélectionné pour garantir la meilleure expérience.
+                                </p>
+                            </div>
+                            <div class="value-item fade-up" style="transition-delay:0.2s">
+                                <h4><i class="fas fa-headset"></i> Support</h4>
+                                <p>Une équipe disponible 7j/7 pour répondre à toutes vos questions et besoins.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-visual">
+                        <img src="assets/extracted_img_3.jpg" id="about-visual-img" alt="Illustration ElyBusiness">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Témoignages Section -->
+        <section id="temoignages" class="testimonials-section">
+            <div class="section-header">
+                <span class="section-badge">Témoignages</span>
+                <h2 class="section-title">Ce que disent nos clients</h2>
+                <p class="section-desc">Découvrez les retours d'expérience de nos clients satisfaits à travers Goma et
+                    la RDC.</p>
+            </div>
+
+            <div class="testimonials-grid" id="testimonials-grid">
+                <div class="testimonial-card fade-up">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Service incroyable ! J'ai reçu ma recharge en moins de 5 minutes.
+                        ElyBusiness est devenu mon fournisseur de confiance pour tous mes besoins téléphoniques."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4>Patrick M.</h4>
+                            <span>Client depuis 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-up" style="transition-delay:0.1s">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"La casquette que j'ai commandée est de très belle qualité. Le service
+                        client via WhatsApp est réactif et très professionnel. Je recommande !"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4>Gracia K.</h4>
+                            <span>Cliente satisfaite</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-up" style="transition-delay:0.2s">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"J'ai acheté un smartphone via ElyBusiness, livraison rapide et prix
+                        compétitif. L'équipe est sérieuse et digne de confiance. Merci !"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4>David N.</h4>
+                            <span>Client régulier</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire d'ajout de témoignage par le client -->
+            <div class="testimonial-form-card fade-up">
+                <div class="testimonial-form-header">
+                    <div class="testimonial-form-icon">
+                        <i class="fas fa-comment-medical"></i>
+                    </div>
+                    <div>
+                        <h3 class="testimonial-form-title">Partagez votre expérience avec ElyBusiness</h3>
+                        <p class="testimonial-form-subtitle">Donnez votre avis et attribuez une note globale pour nous aider à nous améliorer !</p>
+                    </div>
+                </div>
+
+                <form id="testimonial-form" class="testimonial-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testimonial-name"><i class="fas fa-user"></i> Votre Nom et Prénom</label>
+                            <input type="text" id="testimonial-name" placeholder="Ex: Jean Mukendi" required maxlength="60">
+                        </div>
+                        <div class="form-group">
+                            <label for="testimonial-role"><i class="fas fa-tag"></i> Votre Qualité / Statut (optionnel)</label>
+                            <input type="text" id="testimonial-role" placeholder="Ex: Client fidèle, Acheteur..." maxlength="50">
+                        </div>
+                    </div>
+
+                    <div class="form-group rating-group">
+                        <label class="rating-label"><i class="fas fa-star"></i> Votre Note globale (cliquez sur les étoiles) :</label>
+                        <div class="star-rating-picker" id="star-rating-picker">
+                            <i class="fas fa-star star-btn active" data-value="1" title="1 étoile - Insatisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="2" title="2 étoiles - Moyennement satisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="3" title="3 étoiles - Satisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="4" title="4 étoiles - Très satisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="5" title="5 étoiles - Excellent !"></i>
+                        </div>
+                        <input type="hidden" id="testimonial-rating" value="5">
+                        <div class="rating-status-text" id="rating-status-text">
+                            <span class="rating-num">5.0 / 5</span> — <span class="rating-desc">Excellent !</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="testimonial-text"><i class="fas fa-edit"></i> Votre Message / Témoignage</label>
+                        <textarea id="testimonial-text" rows="4" placeholder="Écrivez votre message ici... (ex: Qualité des produits, rapidité de réponse sur WhatsApp, livraison rapide...)" required minlength="10" maxlength="500"></textarea>
+                    </div>
+
+                    <div class="testimonial-form-footer">
+                        <button type="submit" class="btn btn-primary btn-submit-testimonial">
+                            <i class="fas fa-paper-plane"></i> Publier mon témoignage
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <span class="section-badge">Contactez-nous</span>
+                <h2 class="section-title">Entrons en Contact</h2>
+                <p class="section-desc">Vous avez une question, une suggestion ou une réclamation ? Laissez-nous un
+                    message.</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-method-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="#" id="contact-whatsapp-link" target="_blank">+228 90 00 00 00</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-method-text">
+                            <h4>E-mail</h4>
+                            <p><a href="mailto:contact@elybusiness.com"
+                                    id="contact-email-link">contact@elybusiness.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-method-text">
+                            <h4>Adresse Physique</h4>
+                            <p id="contact-address-text">Lomé, Togo</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contact-method-text">
+                            <h4>Horaires</h4>
+                            <p>Disponible 7j/7 — 08h à 22h</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Nom Complet</label>
+                            <input type="text" id="contact-name" class="form-control" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Votre E-mail</label>
+                            <input type="email" id="contact-email" class="form-control" placeholder="exemple@mail.com"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Sujet</label>
+                            <input type="text" id="contact-subject" class="form-control"
+                                placeholder="Objet de votre message" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" class="form-control"
+                                placeholder="Écrivez votre message ici..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Envoyer le
+                            Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer — Premium Layout -->
+    <footer>
+        <div class="footer-main">
+            <!-- Brand Column -->
+            <div class="footer-brand">
+                <a href="#accueil" class="footer-logo">
+                    <span id="footer-logo-text">ElyBusiness</span>
+                </a>
+                <p>Votre partenaire de confiance pour les recharges téléphoniques, les accessoires de mode et les
+                    produits électroniques de qualité.</p>
+                <div class="footer-socials">
+                    <a href="https://facebook.com/elyseebaraka" class="social-btn" id="social-facebook" target="_blank"
+                        title="Facebook @Elysée BARAKA"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/elyseebaraka" class="social-btn" id="social-instagram"
+                        target="_blank" title="Instagram @Elysée BARAKA"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn" id="social-whatsapp" target="_blank" title="WhatsApp"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#produits">Nos Produits</a></li>
+                    <li><a href="#a-propos">À Propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Catégories -->
+            <div class="footer-col">
+                <h4>Catégories</h4>
+                <ul>
+                    <li><a href="#produits">Crédits & Méga</a></li>
+                    <li><a href="#produits">Accessoires</a></li>
+                    <li><a href="#produits">Électronique</a></li>
+                    <li><a href="#produits">Habits & Mode</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#contact">Nous contacter</a></li>
+                    <li><a href="#contact">WhatsApp direct</a></li>
+                    <li><a href="#contact">Par E-mail</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="footer-copyright">
+                    <span id="trigger-admin-login">© ElyBusiness 2026 — Tous droits réservés.</span>
+                </div>
+            </div>
+    </footer>
+
+    <!-- Client Authentication Portal Overlay -->
+    <div class="client-auth-overlay" id="client-auth-overlay">
+        <div class="client-auth-card">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div class="logo-fallback" id="auth-logo-placeholder"
+                    style="margin: 0 auto 1rem auto; width: 52px; height: 52px; font-size: 1.4rem; line-height: 52px;">
+                    EB</div>
+                <h3 class="modal-title" style="font-size: 1.7rem; margin-bottom: 0.3rem;">Espace Client</h3>
+                <p class="modal-desc" style="margin-bottom: 0;">Connectez-vous ou créez un compte pour accéder au site.
+                </p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-login-btn">Connexion</button>
+                <button class="auth-tab-btn" id="tab-register-btn">Inscription</button>
+            </div>
+
+            <!-- Login Panel -->
+            <form class="auth-form-panel active" id="client-login-form">
+                <div class="form-group">
+                    <label for="login-email">Adresse Gmail</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="exemple@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Mot de passe</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-top: -0.4rem;">
+                    <a href="#" id="link-user-forgot-pass" class="auth-forgot-link">Mot de passe oublié ?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;"><i
+                        class="fas fa-sign-in-alt"></i> Se connecter</button>
+            </form>
+
+            <!-- User Forgot Password Panel -->
+            <form class="auth-form-panel" id="client-forgot-form" style="display: none;">
+                <div class="form-group">
+                    <label for="forgot-user-email">Adresse Gmail associée</label>
+                    <input type="email" id="forgot-user-email" class="form-control" placeholder="exemple@gmail.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="forgot-user-new-password">Nouveau mot de passe</label>
+                    <input type="password" id="forgot-user-new-password" class="form-control"
+                        placeholder="Min 6 caractères" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="forgot-user-confirm-password">Confirmer le nouveau mot de passe</label>
+                    <input type="password" id="forgot-user-confirm-password" class="form-control" placeholder="••••••••"
+                        minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;"><i class="fas fa-key"></i>
+                    Réinitialiser le mot de passe</button>
+                <div style="text-align: center; margin-top: 0.5rem;">
+                    <a href="#" id="link-back-to-login" class="auth-forgot-link"><i class="fas fa-arrow-left"></i>
+                        Retour à la connexion</a>
+                </div>
+            </form>
+
+            <!-- Register Panel -->
+            <form class="auth-form-panel" id="client-register-form">
+                <div class="form-group">
+                    <label for="register-name">Nom Complet</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Adresse Gmail</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="exemple@gmail.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Mot de passe</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Min 6 caractères"
+                        minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmer le mot de passe</label>
+                    <input type="password" id="register-confirm-password" class="form-control" placeholder="••••••••"
+                        minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;"><i
+                        class="fas fa-user-plus"></i> Créer mon compte</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Channel Selection Modal -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-container" style="max-width: 440px;">
+            <button class="modal-close" id="order-modal-close-btn">&times;</button>
+            <div class="admin-badge"
+                style="margin: 0 auto 1rem auto; display: flex; width: fit-content; background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.2); color: var(--secondary);">
+                <i class="fas fa-shopping-cart"></i> Finaliser la commande
+            </div>
+            <h3 class="modal-title" style="margin-bottom: 0.5rem;" id="order-modal-title">Passer commande</h3>
+            <p class="modal-desc" id="order-modal-desc" style="margin-bottom: 1.5rem;">Choisissez l'un de nos réseaux
+                pour commander cet article.</p>
+
+            <div class="order-channels-list" id="order-channels-list">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal (Hidden — triggered by double click on copyright or Ctrl+Shift+A) -->
+    <div class="modal-overlay" id="admin-login-modal">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <div class="admin-badge" style="margin: 0 auto 1rem auto; display: flex; width: fit-content;"><i
+                    class="fas fa-lock"></i> Zone Sécurisée</div>
+            <h3 class="modal-title">Compte Admin</h3>
+            <p class="modal-desc">Veuillez entrer vos identifiants pour gérer le site ElyBusiness.</p>
+
+            <form class="contact-form" id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">E-mail</label>
+                    <input type="email" id="admin-email" class="form-control" placeholder="admin@elybusiness.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Mot de passe</label>
+                    <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; margin-top: -0.4rem;">
+                    <a href="#" id="link-admin-forgot-pass" class="auth-forgot-link">Mot de passe admin oublié ?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;"><i
+                        class="fas fa-sign-in-alt"></i> Connecter</button>
+            </form>
+
+            <!-- Admin Forgot Password Form -->
+            <form class="contact-form" id="admin-forgot-form" style="display: none;">
+                <div class="form-group">
+                    <label for="admin-forgot-email">E-mail Administrateur</label>
+                    <input type="email" id="admin-forgot-email" class="form-control" placeholder="admin@elybusiness.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-forgot-new-pass">Nouveau mot de passe Admin</label>
+                    <input type="password" id="admin-forgot-new-pass" class="form-control" placeholder="••••••••"
+                        minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-forgot-confirm-pass">Confirmer le nouveau mot de passe</label>
+                    <input type="password" id="admin-forgot-confirm-pass" class="form-control" placeholder="••••••••"
+                        minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;"><i class="fas fa-save"></i>
+                    Enregistrer le mot de passe</button>
+                <div style="text-align: center; margin-top: 0.8rem;">
+                    <a href="#" id="link-admin-back-login" class="auth-forgot-link"><i class="fas fa-arrow-left"></i> Se
+                        connecter</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal / Drawer -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal-container cart-modal-container">
+            <button class="modal-close" id="cart-modal-close-btn">&times;</button>
+            <div class="admin-badge"
+                style="margin: 0 auto 1rem auto; display: flex; width: fit-content; background: rgba(124, 58, 237, 0.1); border-color: rgba(124, 58, 237, 0.3); color: var(--primary-light);">
+                <i class="fas fa-shopping-basket"></i> Votre Panier
+            </div>
+            <h3 class="modal-title" style="margin-bottom: 0.3rem;">Mon Panier d'achat</h3>
+            <p class="modal-desc" style="margin-bottom: 1.5rem;">Vérifiez vos articles avant de passer commande.</p>
+
+            <div id="cart-items-container" class="cart-items-list">
+                <!-- Cart items filled dynamically -->
+            </div>
+
+            <div class="cart-summary-block" id="cart-summary-block">
+                <div class="cart-total-row">
+                    <span>Total à payer :</span>
+                    <strong class="cart-total-price" id="cart-total-price">$0</strong>
+                </div>
+                <div class="cart-actions-row">
+                    <button id="btn-clear-cart" class="btn btn-secondary"
+                        style="padding: 0.7rem 1.2rem; font-size: 0.88rem; color: var(--danger); border-color: rgba(239,68,68,0.2);">
+                        <i class="fas fa-trash-alt"></i> Vider
+                    </button>
+                    <button id="btn-checkout-cart" class="btn btn-primary"
+                        style="flex-grow: 1; padding: 0.7rem 1.2rem;">
+                        <i class="fas fa-check-circle"></i> Valider la Commande
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Orders Modal -->
+    <div class="modal-overlay" id="client-orders-modal">
+        <div class="modal-container" style="max-width: 650px;">
+            <button class="modal-close" id="client-orders-close-btn">&times;</button>
+            <div class="admin-badge"
+                style="margin: 0 auto 1rem auto; display: flex; width: fit-content; background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3); color: var(--secondary);">
+                <i class="fas fa-receipt"></i> Historique
+            </div>
+            <h3 class="modal-title" style="margin-bottom: 0.3rem;">Mes Commandes</h3>
+            <p class="modal-desc" style="margin-bottom: 1.5rem;">Suivez en direct l'état de vos commandes passées sur
+                ElyBusiness.</p>
+
+            <div id="client-orders-list" class="client-orders-list">
+                <!-- Orders filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Profile Edit Modal -->
+    <div class="modal-overlay" id="client-profile-modal">
+        <div class="modal-container" style="max-width: 440px;">
+            <button class="modal-close" id="client-profile-close-btn">&times;</button>
+            <div class="admin-badge"
+                style="margin: 0 auto 1rem auto; display: flex; width: fit-content; background: rgba(167, 139, 250, 0.1); border-color: rgba(167, 139, 250, 0.3); color: var(--primary-light);">
+                <i class="fas fa-user-cog"></i> Mon Compte
+            </div>
+            <h3 class="modal-title" style="margin-bottom: 0.3rem;">Modifier mon profil</h3>
+            <p class="modal-desc" style="margin-bottom: 1.5rem;">Mettez à jour vos informations personnelles.</p>
+
+            <form class="contact-form" id="client-profile-form">
+                <div class="form-group">
+                    <label for="profile-name">Nom Complet</label>
+                    <input type="text" id="profile-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-email">Adresse Email</label>
+                    <input type="email" id="profile-email" class="form-control" required disabled
+                        style="opacity: 0.6; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                    <label for="profile-password">Nouveau mot de passe (optionnel)</label>
+                    <input type="password" id="profile-password" class="form-control"
+                        placeholder="Laisser vide pour ne pas changer" minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;"><i class="fas fa-save"></i>
+                    Enregistrer les modifications</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Retour en haut">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast Notification Element -->
+    <div class="toast" id="toast-notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-message">Message Notification</span>
+    </div>
+
+    <!-- Firebase SDK & Config -->
+    <script type="module">
+        import {
+            fbGetAll, fbGetOne, fbSet, fbUpdate, fbDelete,
+            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection
+        } from './js/firebase-config.js';
+
+        // Exposer les helpers sur window pour app.js (non-module)
+        window.fbGetAll = fbGetAll;
+        window.fbGetOne = fbGetOne;
+        window.fbSet = fbSet;
+        window.fbUpdate = fbUpdate;
+        window.fbDelete = fbDelete;
+        window.fbQuery = fbQuery;
+        window.fbGetSettings = fbGetSettings;
+        window.fbSaveSettings = fbSaveSettings;
+        window.fbClearCollection = fbClearCollection;
+    </script>
+
+    <!-- Application Script Sheet -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
