@@ -90,6 +90,78 @@ async function fbClearCollection(collectionName) {
     if (!res.ok) throw new Error(`Erreur Firebase lors de la connexion : ${await res.text()}`);
 }
 
+/** Auth Firebase: Inscription d'un utilisateur */
+async function fbRegister(name, email, password) {
+    const res = await fetch(`${API_BASE}/api/users/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors de l\'inscription');
+    return data;
+}
+
+/** Auth Firebase: Connexion d'un utilisateur */
+async function fbLogin(email, password) {
+    const res = await fetch(`${API_BASE}/api/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors de la connexion');
+    return data;
+}
+
+/** Auth Firebase: Réinitialisation du mot de passe */
+async function fbResetPassword(email, newPassword) {
+    const res = await fetch(`${API_BASE}/api/users/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newPassword })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors de la réinitialisation');
+    return data;
+}
+
+/** Auth Firebase: Modification du profil utilisateur */
+async function fbUpdateProfile(email, name, password) {
+    const res = await fetch(`${API_BASE}/api/users/profile`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors de la mise à jour');
+    return data;
+}
+
+/** Auth Firebase: Connexion Administrateur */
+async function fbAdminLogin(email, password) {
+    const res = await fetch(`${API_BASE}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors de la connexion Administrateur');
+    return data;
+}
+
+/** Auth Firebase: Modification du mot de passe Administrateur */
+async function fbChangeAdminPassword(newPassword) {
+    const res = await fetch(`${API_BASE}/api/admin/change-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erreur lors du changement de mot de passe Administrateur');
+    return data;
+}
+
 // Compatibilité avec les anciens imports vides si jamais ils étaient utilisés
 const db = null, firebaseApp = null, collection = null, doc = null, getDocs = null, getDoc = null, setDoc = null, updateDoc = null, deleteDoc = null, query = null, where = null, orderBy = null, runTransaction = null, writeBatch = null;
 
@@ -98,5 +170,7 @@ export {
     collection, doc, getDocs, getDoc, setDoc, updateDoc, deleteDoc,
     query, where, orderBy, runTransaction, writeBatch,
     fbGetAll, fbGetOne, fbSet, fbUpdate, fbDelete,
-    fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection
+    fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection,
+    fbRegister, fbLogin, fbResetPassword, fbUpdateProfile,
+    fbAdminLogin, fbChangeAdminPassword
 };

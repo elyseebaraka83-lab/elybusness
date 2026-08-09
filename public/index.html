@@ -289,6 +289,20 @@
                         <img src="assets/extracted_img_3.jpg" id="about-visual-img" alt="Illustration ElyBusiness">
                     </div>
                 </div>
+
+                <!-- Section Mot du PDG / Direction -->
+                <div class="ceo-card fade-up" style="margin-top: 3rem;">
+                    <div class="ceo-card-visual">
+                        <img src="assets/extracted_img_1.jpg" id="ceo-photo-img" alt="Photo du PDG Elysée BARAKA">
+                    </div>
+                    <div class="ceo-card-content">
+                        <span class="ceo-card-badge"><i class="fas fa-quote-left"></i> Mot de la Direction</span>
+                        <h3 class="ceo-card-name" id="ceo-name">Elysée BARAKA</h3>
+                        <p class="ceo-card-bio" id="ceo-bio-text">
+                            Chez ElyBusiness, notre priorité absolue est la satisfaction du client. Nous croyons que la technologie et les accessoires de qualité doivent être accessibles à tous rapidement et en toute sécurité. Nous continuons d'innover pour vous apporter des solutions adaptées à vos besoins financiers et de communication.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -365,7 +379,8 @@
                     </div>
                     <div>
                         <h3 class="testimonial-form-title">Partagez votre expérience avec ElyBusiness</h3>
-                        <p class="testimonial-form-subtitle">Donnez votre avis et attribuez une note globale pour nous aider à nous améliorer !</p>
+                        <p class="testimonial-form-subtitle">Donnez votre avis et attribuez une note globale pour nous
+                            aider à nous améliorer !</p>
                     </div>
                 </div>
 
@@ -373,21 +388,27 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="testimonial-name"><i class="fas fa-user"></i> Votre Nom et Prénom</label>
-                            <input type="text" id="testimonial-name" placeholder="Ex: Jean Mukendi" required maxlength="60">
+                            <input type="text" id="testimonial-name" placeholder="Ex: Jean Mukendi" required
+                                maxlength="60">
                         </div>
                         <div class="form-group">
-                            <label for="testimonial-role"><i class="fas fa-tag"></i> Votre Qualité / Statut (optionnel)</label>
-                            <input type="text" id="testimonial-role" placeholder="Ex: Client fidèle, Acheteur..." maxlength="50">
+                            <label for="testimonial-role"><i class="fas fa-tag"></i> Votre Qualité / Statut
+                                (optionnel)</label>
+                            <input type="text" id="testimonial-role" placeholder="Ex: Client fidèle, Acheteur..."
+                                maxlength="50">
                         </div>
                     </div>
 
                     <div class="form-group rating-group">
-                        <label class="rating-label"><i class="fas fa-star"></i> Votre Note globale (cliquez sur les étoiles) :</label>
+                        <label class="rating-label"><i class="fas fa-star"></i> Votre Note globale (cliquez sur les
+                            étoiles) :</label>
                         <div class="star-rating-picker" id="star-rating-picker">
                             <i class="fas fa-star star-btn active" data-value="1" title="1 étoile - Insatisfait"></i>
-                            <i class="fas fa-star star-btn active" data-value="2" title="2 étoiles - Moyennement satisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="2"
+                                title="2 étoiles - Moyennement satisfait"></i>
                             <i class="fas fa-star star-btn active" data-value="3" title="3 étoiles - Satisfait"></i>
-                            <i class="fas fa-star star-btn active" data-value="4" title="4 étoiles - Très satisfait"></i>
+                            <i class="fas fa-star star-btn active" data-value="4"
+                                title="4 étoiles - Très satisfait"></i>
                             <i class="fas fa-star star-btn active" data-value="5" title="5 étoiles - Excellent !"></i>
                         </div>
                         <input type="hidden" id="testimonial-rating" value="5">
@@ -398,7 +419,9 @@
 
                     <div class="form-group">
                         <label for="testimonial-text"><i class="fas fa-edit"></i> Votre Message / Témoignage</label>
-                        <textarea id="testimonial-text" rows="4" placeholder="Écrivez votre message ici... (ex: Qualité des produits, rapidité de réponse sur WhatsApp, livraison rapide...)" required minlength="10" maxlength="500"></textarea>
+                        <textarea id="testimonial-text" rows="4"
+                            placeholder="Écrivez votre message ici... (ex: Qualité des produits, rapidité de réponse sur WhatsApp, livraison rapide...)"
+                            required minlength="10" maxlength="500"></textarea>
                     </div>
 
                     <div class="testimonial-form-footer">
@@ -799,7 +822,9 @@
     <script type="module">
         import {
             fbGetAll, fbGetOne, fbSet, fbUpdate, fbDelete,
-            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection
+            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection,
+            fbRegister, fbLogin, fbResetPassword, fbUpdateProfile,
+            fbAdminLogin, fbChangeAdminPassword
         } from './js/firebase-config.js';
 
         // Exposer les helpers sur window pour app.js (non-module)
@@ -812,6 +837,12 @@
         window.fbGetSettings = fbGetSettings;
         window.fbSaveSettings = fbSaveSettings;
         window.fbClearCollection = fbClearCollection;
+        window.fbRegister = fbRegister;
+        window.fbLogin = fbLogin;
+        window.fbResetPassword = fbResetPassword;
+        window.fbUpdateProfile = fbUpdateProfile;
+        window.fbAdminLogin = fbAdminLogin;
+        window.fbChangeAdminPassword = fbChangeAdminPassword;
     </script>
 
     <!-- Application Script Sheet -->

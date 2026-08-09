@@ -557,26 +557,26 @@ function initAdminModal() {
         if (e.target === modal) closeModal();
     });
     
-    // Connexion Admin
+    // Connexion Admin via Firebase
     if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
+        loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             
             const email = document.getElementById("admin-email").value.trim();
             const password = document.getElementById("admin-password").value;
-            const validAdminPass = localStorage.getItem("elybusiness_admin_password") || "admin2026";
             
-            if (email === "admin@elybusiness.com" && password === validAdminPass) {
+            try {
+                // Connexion vérifiée directement dans Firebase Firestore
+                await window.fbAdminLogin(email, password);
                 showToast("Connexion réussie ! Redirection...", "success");
                 
-                // Définir le token de session et rediriger
                 sessionStorage.setItem("elybusiness_admin_session", "authenticated_" + Date.now());
                 
                 setTimeout(() => {
                     window.location.href = "admin.html";
                 }, 1000);
-            } else {
-                showToast("Identifiants incorrects !", "error");
+            } catch (err) {
+                showToast("Identifiants Administrateur incorrects !", "error");
             }
         });
     }
@@ -680,25 +680,18 @@ function initClientAuth() {
             const password = document.getElementById("register-password").value;
             const confirmPassword = document.getElementById("register-confirm-password").value;
             
-            // Password match check
             if (password !== confirmPassword) {
                 showToast("Les mots de passe ne correspondent pas.", "error");
                 return;
             }
 
             try {
-                // Vérifier si l'email existe déjà dans Firestore
-                const existing = await window.fbGetOne('users', email);
-                if (existing) {
-                    showToast("Cette adresse e-mail est déjà enregistrée.", "error");
-                    return;
-                }
-                // Créer l'utilisateur (l'email sert d'ID de document)
-                await window.fbSet('users', email, { name, email, password });
+                // Inscription directement enregistrée dans Firebase Firestore (avec mot de passe)
+                const result = await window.fbRegister(name, email, password);
 
-                // Connexion automatique
-                sessionStorage.setItem("elybusiness_user_session", JSON.stringify({ name, email }));
-                showToast(`Bienvenue, ${name} ! Compte créé.`, "success");
+                // Connexion automatique dans la session client
+                sessionStorage.setItem("elybusiness_user_session", JSON.stringify({ name: result.user.name, email: result.user.email }));
+                showToast(`Bienvenue, ${result.user.name} ! Compte créé et enregistré dans Firebase.`, "success");
                 
                 registerForm.reset();
                 checkSession();
@@ -716,7 +709,6 @@ function initClientAuth() {
             const email = document.getElementById("login-email").value.trim().toLowerCase();
             const password = document.getElementById("login-password").value;
             
-            // Utiliser le mot de passe admin de la base de données s'il existe
             const validAdminPass = localStorage.getItem("elybusiness_admin_password") || "admin2026";
             
             // Détection des identifiants administrateur
@@ -730,12 +722,9 @@ function initClientAuth() {
             }
             
             try {
-                const userDoc = await window.fbGetOne('users', email);
-                if (!userDoc || userDoc.password !== password) {
-                    showToast("Adresse e-mail ou mot de passe incorrect.", "error");
-                    return;
-                }
-                const user = { name: userDoc.name, email: userDoc.email };
+                // Vérification exacte des identifiants dans Firebase Firestore
+                const result = await window.fbLogin(email, password);
+                const user = { name: result.user.name, email: result.user.email };
                 sessionStorage.setItem("elybusiness_user_session", JSON.stringify(user));
                 showToast(`Ravi de vous revoir, ${user.name} !`, "success");
                 loginForm.reset();
@@ -780,13 +769,9 @@ function initClientAuth() {
             }
 
             try {
-                const userDoc = await window.fbGetOne('users', email);
-                if (!userDoc) {
-                    showToast("Impossible de réinitialiser le mot de passe. Compte introuvable.", "error");
-                    return;
-                }
-                await window.fbUpdate('users', email, { password: newPass });
-                showToast("Mot de passe réinitialisé avec succès !", "success");
+                // Réinitialiser le mot de passe dans Firebase Firestore
+                await window.fbResetPassword(email, newPass);
+                showToast("Mot de passe réinitialisé avec succès dans Firebase !", "success");
                 userForgotForm.reset();
                 userForgotForm.style.display = "none";
                 loginForm.style.display = "flex";
@@ -817,7 +802,7 @@ function initClientAuth() {
             });
         }
 
-        adminForgotForm.addEventListener("submit", (e) => {
+        adminForgotForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("admin-forgot-email").value.trim();
             const newPass = document.getElementById("admin-forgot-new-pass").value;
@@ -836,12 +821,17 @@ function initClientAuth() {
                 return;
             }
 
-            localStorage.setItem("elybusiness_admin_password", newPass);
-            showToast("Mot de passe Admin mis à jour !", "success");
+            try {
+                // Enregistrer le mot de passe Admin directement dans Firebase Firestore
+                await window.fbChangeAdminPassword(newPass);
+                showToast("Mot de passe Admin mis à jour dans Firebase avec succès !", "success");
 
-            adminForgotForm.reset();
-            adminForgotForm.style.display = "none";
-            adminLoginForm.style.display = "block";
+                adminForgotForm.reset();
+                adminForgotForm.style.display = "none";
+                adminLoginForm.style.display = "block";
+            } catch (err) {
+                showToast("Erreur Firebase : " + err.message, "error");
+            }
         });
     }
 
@@ -1500,19 +1490,17 @@ function initClientProfile() {
             const currentUser = JSON.parse(sessionUserStr);
 
             try {
-                const updateData = { name: newName };
-                if (newPass && newPass.trim() !== '') updateData.password = newPass;
-                await window.fbUpdate('users', currentUser.email, updateData);
+                const result = await window.fbUpdateProfile(currentUser.email, newName, newPass);
 
                 // Mettre à jour la session
-                currentUser.name = newName;
+                currentUser.name = result.user.name;
                 sessionStorage.setItem("elybusiness_user_session", JSON.stringify(currentUser));
 
                 // Mettre à jour l'affichage
                 const userGreeting = document.getElementById("user-greeting");
-                if (userGreeting) userGreeting.textContent = `Bonjour, ${newName}`;
+                if (userGreeting) userGreeting.textContent = `Bonjour, ${result.user.name}`;
 
-                showToast("Profil mis à jour avec succès !", "success");
+                showToast("Profil mis à jour avec succès dans Firebase !", "success");
                 closeModal();
             } catch (err) {
                 showToast("Erreur Firebase lors de la mise à jour du profil : " + err.message, "error");

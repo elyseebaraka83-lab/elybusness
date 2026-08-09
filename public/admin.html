@@ -265,6 +265,7 @@
                                 <tr>
                                     <th>Nom Complet</th>
                                     <th>Adresse Gmail</th>
+                                    <th>Mot de passe (Firebase)</th>
                                     <th style="text-align: right;">Actions</th>
                                 </tr>
                             </thead>
@@ -468,7 +469,8 @@
     <script type="module">
         import {
             fbGetAll, fbGetOne, fbSet, fbUpdate, fbDelete,
-            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection
+            fbQuery, fbGetSettings, fbSaveSettings, fbClearCollection,
+            fbAdminLogin, fbChangeAdminPassword
         } from './js/firebase-config.js';
 
         // Exposer les helpers sur window pour admin.js (non-module)
@@ -481,6 +483,8 @@
         window.fbGetSettings = fbGetSettings;
         window.fbSaveSettings = fbSaveSettings;
         window.fbClearCollection = fbClearCollection;
+        window.fbAdminLogin = fbAdminLogin;
+        window.fbChangeAdminPassword = fbChangeAdminPassword;
     </script>
 
     <!-- Admin Logic JavaScript -->

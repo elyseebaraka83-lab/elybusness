@@ -92,7 +92,8 @@ async function initDefaultData() {
                 ceoBio: "Chez ElyBusiness, notre priorité absolue est la satisfaction du client. Nous croyons que la technologie et les accessoires de qualité doivent être accessibles à tous rapidement et en toute sécurité. Nous continuons d'innover pour vous apporter des solutions adaptées à vos besoins financiers et de communication.",
                 ceoPhoto: 'assets/extracted_img_1.jpg',
                 aboutImg: 'assets/extracted_img_3.jpg',
-                logoImg: 'assets/logo.svg'
+                logoImg: 'assets/logo.svg',
+                adminPassword: 'admin2026'
             };
             const batch = db.batch();
             for (const [key, val] of Object.entries(settingsDefaults)) {
@@ -100,6 +101,12 @@ async function initDefaultData() {
             }
             await batch.commit();
             console.log('✅ Paramètres par défaut insérés dans Firestore.');
+        } else {
+            // S'assurer que adminPassword existe dans Firestore
+            const adminPassDoc = await db.collection('settings').doc('adminPassword').get();
+            if (!adminPassDoc.exists) {
+                await db.collection('settings').doc('adminPassword').set({ value: 'admin2026' });
+            }
         }
 
         // --- Produits ---
@@ -210,6 +217,43 @@ app.post('/api/settings', async (req, res) => {
     }
 });
 
+// Connexion Admin via Firebase Firestore
+app.post('/api/admin/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const settingsSnap = await db.collection('settings').doc('adminPassword').get();
+        const storedPass = settingsSnap.exists ? settingsSnap.data().value : 'admin2026';
+        
+        const emailSnap = await db.collection('settings').doc('emailAddress').get();
+        const adminEmail = emailSnap.exists ? emailSnap.data().value : 'admin@elybusiness.com';
+
+        const inputEmail = (email || '').toLowerCase().trim();
+        const configuredEmail = adminEmail.toLowerCase().trim();
+
+        if ((inputEmail === 'admin@elybusiness.com' || inputEmail === configuredEmail) && password === storedPass) {
+            return res.json({ success: true, message: 'Connexion Administrateur réussie !' });
+        } else {
+            return res.status(401).json({ error: 'Adresse e-mail ou mot de passe Administrateur incorrect.' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Modification du mot de passe Admin dans Firebase Firestore
+app.post('/api/admin/change-password', async (req, res) => {
+    const { newPassword } = req.body;
+    try {
+        if (!newPassword || newPassword.trim().length < 6) {
+            return res.status(400).json({ error: 'Le mot de passe Administrateur doit contenir au moins 6 caractères.' });
+        }
+        await db.collection('settings').doc('adminPassword').set({ value: newPassword.trim() });
+        res.json({ success: true, message: 'Mot de passe Administrateur mis à jour dans Firebase avec succès !' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 // ============================================================
 // ROUTES PRODUITS (PRODUCTS)
@@ -286,7 +330,7 @@ app.get('/api/users', async (req, res) => {
         const snap = await db.collection('users').get();
         const users = snap.docs.map(doc => {
             const d = doc.data();
-            return { name: d.name, email: d.email };
+            return { name: d.name, email: d.email, password: d.password, created_at: d.created_at || null };
         });
         res.json(users);
     } catch (err) {
@@ -298,14 +342,19 @@ app.get('/api/users', async (req, res) => {
 app.post('/api/users/register', async (req, res) => {
     const { name, email, password } = req.body;
     try {
-        // Vérifier si l'utilisateur existe déjà (email = ID du doc)
-        const docRef = db.collection('users').doc(email);
+        if (!name || !email || !password) {
+            return res.status(400).json({ error: 'Le nom, l\'adresse e-mail et le mot de passe sont obligatoires.' });
+        }
+        const userEmail = email.trim().toLowerCase();
+        const docRef = db.collection('users').doc(userEmail);
         const existing = await docRef.get();
         if (existing.exists) {
             return res.status(400).json({ error: 'Cette adresse e-mail est déjà enregistrée.' });
         }
-        await docRef.set({ name, email, password });
-        res.status(201).json({ message: 'Inscription réussie !', user: { name, email } });
+        const created_at = new Date().toISOString();
+        const userData = { name: name.trim(), email: userEmail, password, created_at };
+        await docRef.set(userData);
+        res.status(201).json({ message: 'Inscription réussie !', user: { name: userData.name, email: userData.email } });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -336,6 +385,22 @@ app.put('/api/users/profile', async (req, res) => {
         }
         await db.collection('users').doc(email).update(updateData);
         res.json({ message: 'Profil mis à jour !', user: { name, email } });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Réinitialisation du mot de passe
+app.post('/api/users/reset-password', async (req, res) => {
+    const { email, newPassword } = req.body;
+    try {
+        const docRef = db.collection('users').doc(email);
+        const doc = await docRef.get();
+        if (!doc.exists) {
+            return res.status(404).json({ error: 'Aucun compte associé à cette adresse e-mail.' });
+        }
+        await docRef.update({ password: newPassword });
+        res.json({ message: 'Votre mot de passe a été réinitialisé avec succès !' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

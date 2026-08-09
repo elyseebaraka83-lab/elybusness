@@ -525,10 +525,10 @@ function initActionHandlers() {
                         showToast("Le mot de passe administrateur doit contenir au moins 6 caractères.", "error");
                         return;
                     }
-                    localStorage.setItem("elybusiness_admin_password", newAdminPass);
+                    await window.fbChangeAdminPassword(newAdminPass);
                     document.getElementById("setting-admin-new-pass").value = "";
                     document.getElementById("setting-admin-confirm-pass").value = "";
-                    showToast("Paramètres du site & mot de passe Admin enregistrés !", "success");
+                    showToast("Paramètres du site & mot de passe Admin enregistrés dans Firebase !", "success");
                 } else {
                     showToast("Paramètres du site enregistrés !", "success");
                 }
@@ -803,55 +803,6 @@ function showToast(message, type = "success") {
 }
 
 // --- Users Management Tab Logic ---
-function loadUsersTable() {
-    const tbody = document.getElementById("admin-users-tbody");
-    if (!tbody) return;
-
-    tbody.innerHTML = "";
-    const users = JSON.parse(localStorage.getItem("elybusiness_users")) || [];
-
-    if (users.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="3" style="text-align: center; color: var(--text-secondary); padding: 2.5rem;">
-                    <i class="fas fa-users-slash" style="font-size: 2rem; margin-bottom: 0.8rem; color: var(--primary); display: block;"></i>
-                    Aucun client enregistré pour le moment.
-                </td>
-            </tr>
-        `;
-        return;
-    }
-
-    users.forEach(user => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-            <td style="font-weight: 600; padding: 1.2rem 1rem;">${user.name}</td>
-            <td style="padding: 1.2rem 1rem; color: var(--secondary);">${user.email}</td>
-            <td style="text-align: right; padding: 1.2rem 1rem;">
-                <button class="btn-admin-action btn-admin-delete" onclick="deleteUser('${user.email}')" title="Supprimer le compte client">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-window.deleteUser = function(email) {
-    const users = JSON.parse(localStorage.getItem("elybusiness_users")) || [];
-    const user = users.find(u => u.email === email);
-    if (!user) return;
-
-    if (confirm(`Voulez-vous vraiment supprimer le compte de l'utilisateur "${user.name}" (${user.email}) ?`)) {
-        const filtered = users.filter(u => u.email !== email);
-        localStorage.setItem("elybusiness_users", JSON.stringify(filtered));
-        loadUsersTable();
-        loadStats();
-        showToast("Compte utilisateur supprimé avec succès", "success");
-    }
-};
-
 async function loadUsersTable() {
     const tbody = document.getElementById("admin-users-tbody");
     if (!tbody) return;
@@ -859,27 +810,30 @@ async function loadUsersTable() {
     tbody.innerHTML = "";
     try {
         const users = await window.fbGetAll('users');
-        const safeUsers = users.map(u => ({ name: u.name, email: u.email }));
 
-        if (safeUsers.length === 0) {
+        if (users.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="3" style="text-align: center; color: var(--text-secondary); padding: 2.5rem;">
+                    <td colspan="4" style="text-align: center; color: var(--text-secondary); padding: 2.5rem;">
                         <i class="fas fa-users-slash" style="font-size: 2rem; margin-bottom: 0.8rem; color: var(--primary); display: block;"></i>
-                        Aucun client enregistré pour le moment.
+                        Aucun client enregistré dans Firebase Firestore.
                     </td>
                 </tr>
             `;
             return;
         }
 
-        safeUsers.forEach(user => {
+        users.forEach(user => {
             const tr = document.createElement("tr");
+            const maskedPass = user.password || '••••••••';
             tr.innerHTML = `
-                <td style="font-weight: 600; padding: 1.2rem 1rem;">${user.name}</td>
+                <td style="font-weight: 600; padding: 1.2rem 1rem;">${user.name || 'Client'}</td>
                 <td style="padding: 1.2rem 1rem; color: var(--secondary);">${user.email}</td>
+                <td style="padding: 1.2rem 1rem; font-family: monospace; color: var(--primary-light);">
+                    <span title="Mot de passe stocké dans Firebase">${maskedPass}</span>
+                </td>
                 <td style="text-align: right; padding: 1.2rem 1rem;">
-                    <button class="btn-admin-action btn-admin-delete" onclick="deleteUser('${user.email}')" title="Supprimer le compte client">
+                    <button class="btn-admin-action btn-admin-delete" onclick="deleteUser('${user.email}')" title="Supprimer le compte client de Firebase">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </td>
@@ -887,7 +841,7 @@ async function loadUsersTable() {
             tbody.appendChild(tr);
         });
     } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--danger)">Erreur Firebase.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--danger)">Erreur Firebase lors du chargement des utilisateurs.</td></tr>`;
     }
 }
 
@@ -1106,7 +1060,7 @@ async function loadTestimonialsTable() {
     });
 }
 
-async function deleteTestimonial(id) {
+window.deleteTestimonial = async function(id) {
     if (!confirm("Voulez-vous vraiment supprimer ce témoignage ?")) return;
 
     try {
@@ -1116,5 +1070,5 @@ async function deleteTestimonial(id) {
     } catch (err) {
         showToast("Erreur Firebase : " + err.message, "error");
     }
-}
+};
 
