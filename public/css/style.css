@@ -945,7 +945,7 @@ section {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.8rem;
 }
 
@@ -1026,7 +1026,7 @@ section {
 .product-img-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 72%;
+    padding-top: 60%;
     background: linear-gradient(135deg, rgba(18,14,35,1), rgba(12,10,28,1));
     overflow: hidden;
 }
@@ -2887,10 +2887,18 @@ footer::before {
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: 2.4rem; }
-    .section-title { font-size: 1.8rem; }
-    .products-grid { grid-template-columns: 1fr; }
-    .hero-stats { gap: 1.5rem; }
+    .hero-title { font-size: 2.2rem; }
+    .section-title { font-size: 1.6rem; }
+    .products-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 1rem;
+    }
+    .hero-stats { gap: 1rem; }
+    
+    /* Make product cards text slightly smaller on mobile to fit 2 columns nicely */
+    .product-info h3 { font-size: 1rem; }
+    .product-price { font-size: 1.1rem; }
+    .btn-buy { padding: 0.6rem; font-size: 0.9rem; }
 }
 
 /* ============================================================
