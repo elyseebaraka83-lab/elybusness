@@ -709,10 +709,10 @@ function initClientAuth() {
             const email = document.getElementById("login-email").value.trim().toLowerCase();
             const password = document.getElementById("login-password").value;
             
-            const validAdminPass = localStorage.getItem("elybusiness_admin_password") || "admin2026";
+            const validAdminPass = localStorage.getItem("elybusiness_admin_password") || "R1234ad@";
             
             // Détection des identifiants administrateur
-            if (email === "admin@elybusiness.com" && password === validAdminPass) {
+            if (email === "elybusness83@gmail.com" && password === validAdminPass) {
                 showToast("Connexion réussie ! Redirection...", "success");
                 sessionStorage.setItem("elybusiness_admin_session", "authenticated_" + Date.now());
                 setTimeout(() => {
@@ -809,9 +809,9 @@ function initClientAuth() {
             const confirmPass = document.getElementById("admin-forgot-confirm-pass").value;
 
             const settings = getSettings();
-            const validAdminEmail = settings.emailAddress || "admin@elybusiness.com";
+            const validAdminEmail = settings.emailAddress || "elybusness83@gmail.com";
 
-            if (email.toLowerCase() !== "admin@elybusiness.com" && email.toLowerCase() !== validAdminEmail.toLowerCase()) {
+            if (email.toLowerCase() !== "elybusness83@gmail.com" && email.toLowerCase() !== validAdminEmail.toLowerCase()) {
                 showToast("Adresse e-mail administrateur non reconnue.", "error");
                 return;
             }

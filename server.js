@@ -93,7 +93,7 @@ async function initDefaultData() {
                 ceoPhoto: 'assets/extracted_img_1.jpg',
                 aboutImg: 'assets/extracted_img_3.jpg',
                 logoImg: 'assets/logo.svg',
-                adminPassword: 'admin2026'
+                adminPassword: 'R1234ad@'
             };
             const batch = db.batch();
             for (const [key, val] of Object.entries(settingsDefaults)) {
@@ -105,7 +105,7 @@ async function initDefaultData() {
             // S'assurer que adminPassword existe dans Firestore
             const adminPassDoc = await db.collection('settings').doc('adminPassword').get();
             if (!adminPassDoc.exists) {
-                await db.collection('settings').doc('adminPassword').set({ value: 'admin2026' });
+                await db.collection('settings').doc('adminPassword').set({ value: 'R1234ad@' });
             }
         }
 
@@ -222,15 +222,15 @@ app.post('/api/admin/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const settingsSnap = await db.collection('settings').doc('adminPassword').get();
-        const storedPass = settingsSnap.exists ? settingsSnap.data().value : 'admin2026';
+        const storedPass = settingsSnap.exists ? settingsSnap.data().value : 'R1234ad@';
         
         const emailSnap = await db.collection('settings').doc('emailAddress').get();
-        const adminEmail = emailSnap.exists ? emailSnap.data().value : 'admin@elybusiness.com';
+        const adminEmail = emailSnap.exists ? emailSnap.data().value : 'elybusness83@gmail.com';
 
         const inputEmail = (email || '').toLowerCase().trim();
         const configuredEmail = adminEmail.toLowerCase().trim();
 
-        if ((inputEmail === 'admin@elybusiness.com' || inputEmail === configuredEmail) && password === storedPass) {
+        if ((inputEmail === 'elybusness83@gmail.com' || inputEmail === configuredEmail) && password === storedPass) {
             return res.json({ success: true, message: 'Connexion Administrateur réussie !' });
         } else {
             return res.status(401).json({ error: 'Adresse e-mail ou mot de passe Administrateur incorrect.' });
