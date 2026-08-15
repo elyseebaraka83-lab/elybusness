@@ -632,13 +632,19 @@ function initClientAuth() {
     // Check active session
     const checkSession = () => {
         const sessionUser = sessionStorage.getItem("elybusiness_user_session");
-        if (sessionUser) {
-            const user = JSON.parse(sessionUser);
+        const sessionAdmin = sessionStorage.getItem("elybusiness_admin_session");
+        
+        if (sessionUser || sessionAdmin) {
             authOverlay.classList.remove("active");
             document.body.style.overflow = ""; // restore scrolling
             
             if (userNavItem && userGreeting) {
-                userGreeting.textContent = `Bonjour, ${user.name}`;
+                if (sessionAdmin && !sessionUser) {
+                    userGreeting.textContent = `Bonjour, Administrateur`;
+                } else if (sessionUser) {
+                    const user = JSON.parse(sessionUser);
+                    userGreeting.textContent = `Bonjour, ${user.name}`;
+                }
                 userNavItem.style.display = "block";
             }
         } else {
